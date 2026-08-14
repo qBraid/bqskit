@@ -117,6 +117,7 @@ class Compiler:
                 runtime_log_level,
                 worker_port,
                 num_blas_threads,
+                port,
             )
 
         self._connect_to_server(ip, port, self.p is not None)
@@ -127,6 +128,7 @@ class Compiler:
         runtime_log_level: int,
         worker_port: int,
         num_blas_threads: int,
+        port: int = default_server_port,
     ) -> None:
         """
         Start an attached serer with `num_workers` workers.
@@ -137,6 +139,7 @@ class Compiler:
         params += f'log_level={runtime_log_level}, '
         params += f'{worker_port=}, '
         params += f'{num_blas_threads=}, '
+        params += f'{port=}, '
         import_str = 'from bqskit.runtime.attached import start_attached_server'
         launch_str = f'{import_str}; start_attached_server({params})'
         if sys.platform == 'win32':
